@@ -1,31 +1,54 @@
-package com.austen.c1jetnews
+package com.austen.c1jetnews.ui.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import com.austen.c1jetnews.AppDrawer
+import com.austen.c1jetnews.HomeTopbar
+import com.austen.c1jetnews.NewItem
+import com.austen.c1jetnews.PopularSection
+import com.austen.c1jetnews.PostCardHistory
+import com.austen.c1jetnews.TopNewItem
+import com.austen.c1jetnews.ui.navigation.NAVIGATION_ITEM
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object HomeKey : NavKey
+
+
+fun EntryProviderScope<NavKey>.homeEntry(){
+    entry<HomeKey>{
+        HomeScreen()
+    }
+}
+
 
 @Composable
-fun JetNewHome(modifier: Modifier = Modifier) { // 外部 modifier 确定 当前组件在 父组件中的 ：大小、位置
+fun HomeScreen(modifier: Modifier = Modifier) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
     ModalNavigationDrawer(
-        modifier = modifier,
-        drawerState = drawerState,
         drawerContent = {
-            HomeDrawerContent()
-        }) {
+            AppDrawer(
+                navigate = {},
+                closeDrawer = {},
+                navigationItems = NAVIGATION_ITEM,
+                drawerState = drawerState,
+                currentTopLevelKey = HomeKey
+            )
+        },
+        drawerState = drawerState,
+    ) {
         Scaffold(
             topBar = {
                 HomeTopbar(onDrawer = {
@@ -45,7 +68,7 @@ fun JetNewHome(modifier: Modifier = Modifier) { // 外部 modifier 确定 当前
                 modifier =
                     Modifier
                         .padding(innerPadding)
-                        .padding(horizontal = 15.dp)
+
             ) {
                 item {
                     TopNewItem()
@@ -56,15 +79,10 @@ fun JetNewHome(modifier: Modifier = Modifier) { // 外部 modifier 确定 当前
                 item {
                     PopularSection()
                 }
-                items(100) {
-                    NewItem()
+                items(3) {
+                    PostCardHistory()
                 }
             }
         }
     }
-
-
 }
-
-
-

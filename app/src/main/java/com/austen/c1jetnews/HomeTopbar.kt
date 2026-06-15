@@ -3,6 +3,7 @@ package com.austen.c1jetnews
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -24,7 +25,7 @@ fun HomeTopbar(modifier: Modifier = Modifier, onDrawer: () -> Unit) {
         Image(
             painter = painterResource(R.drawable.ic_jetnews_wordmark),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(color = Color.Blue)
+            colorFilter = ColorFilter.tint(color = Color(0xFF3B71BF))
         )
     }, navigationIcon = {
         Image(
@@ -33,14 +34,14 @@ fun HomeTopbar(modifier: Modifier = Modifier, onDrawer: () -> Unit) {
                 .clickable(onClick = onDrawer),
             painter = painterResource(R.drawable.ic_jetnews_logo),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(color = Color.Blue)
+            colorFilter = ColorFilter.tint(color = Color.Black)
         )
     }, actions = {
         Image(
             modifier = Modifier.padding(end = 15.dp),
             painter = painterResource(R.drawable.ic_search),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(color = Color.Blue)
+            colorFilter = ColorFilter.tint(color = Color.Black)
         )
     })
 
